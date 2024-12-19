@@ -1,3 +1,4 @@
+using System.Reflection;
 using ClassLibrary;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -52,7 +53,7 @@ namespace ExerciseTests
             var number2 = 10;
 
             //Act
-            var result = await swap.SwapValues(number1, number2);
+            (int Value1, int Value2) result = await swap.SwapValues(number1, number2);
 
             //Assert
             result.Value1.Should().Be(10);
@@ -80,18 +81,21 @@ namespace ExerciseTests
             //Arrange
             double value1 = 25;
             double value2 = 4;
+            double value3 = 10;
 
             //Act
             var add = await _exercise.Add(value1, value2);
             var subtract = await _exercise.Subtract(value1, value2);
             var multiply = await _exercise.Multiply(value1, value2);
             var divide = await _exercise.Divide(value1, value2);
+            var expression = await _exercise.Divide(await _exercise.Multiply(value1, value2), value3);
 
             //Assert
             add.Should().Be(29);
             subtract.Should().Be(21);
             multiply.Should().Be(100);
             divide.Should().Be(6.25);
+            expression.Should().Be(10);
         }
 
         [TestMethod]
@@ -524,6 +528,148 @@ namespace ExerciseTests
 
             //Assert
             result.Should().Be(true);
+        }
+
+        [TestMethod]
+        public async Task ShouldBeInsideRange()
+        {
+            //Arrange
+            int n1 = -5;
+            int n2 = 8;
+            int n3 = 15;
+
+            //Act
+            bool result = await _exercise.FitsRange(n1, n2);
+            bool result2 = await _exercise.FitsRange(n1, n3);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(false);
+        }
+
+        [TestMethod]
+        public async Task ShouldRemoveStringPart()
+        {
+            //Arrange
+            string input = "PHP Tutorial";
+            string remove = "HP";
+
+            //Act
+            string result = await _exercise.RemoveCharacterByString(input, remove);
+
+            //Assert
+            result.Should().Be("P Tutorial");
+        }
+
+        [TestMethod]
+        public async Task ShouldFindTheString()
+        {
+            //Arrange
+            string input = "PHP";
+            string lookingFor = "PH";
+
+            //Act
+            bool result = await _exercise.StringFinder(input, lookingFor);
+
+            //Assert
+            result.Should().Be(true);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindLargestAndLowest()
+        {
+            //Arrange
+            int n1 = 15;
+            int n2 = 25;
+            int n3 = 30;
+
+            int n4 = 252;
+            int n5 = 62;
+            int n6 = 12;
+
+            //Act
+            (int Largest, int Lowest) result = await _exercise.FindLargestAndLowest(n1, n2, n3);
+            (int Largest, int Lowest) result2 = await _exercise.FindLargestAndLowest(n4, n5, n6);
+
+            //Assert
+            result.Largest.Should().Be(30);
+            result.Lowest.Should().Be(15);
+            result2.Largest.Should().Be(252);
+            result2.Lowest.Should().Be(12);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindTheClosestTo20()
+        {
+            //Arrange
+            int n1 = 15;
+            int n2 = 12;
+            int n3 = 15;
+
+            //Act
+            int result = await _exercise.NextTo20(n1, n2);
+            int result2 = await _exercise.NextTo20(n1, n3);
+
+            //Assert
+            result.Should().Be(15);
+            result2.Should().Be(0);
+        }
+
+        [TestMethod]
+        public async Task ShouldUpperCaseFirstFourCharacters()
+        {
+            //Arrange
+            string input = "This isnt over";
+            string input2 = "w3r";
+
+            //Act
+            string result = await _exercise.FirstFourUpperCase(input);
+            string result2 = await _exercise.FirstFourUpperCase(input2);
+
+            //Assert
+            result.Should().Be("THIS isnt over");
+            result2.Should().Be("W3R");
+        }
+
+        [TestMethod]
+        public async Task ShouldRemoveOddNumberedChar()
+        {
+            //Arrange
+            string input = "w3resource";
+
+            //Act
+            string result = await _exercise.RemoveOddNumberedCharacters(input);
+
+            //Assert
+            result.Should().Be("wrsuc");
+        }
+
+        [TestMethod]
+        public async Task ShouldCountTheEspecificNumberInsideArray()
+        {
+            //Arrange
+            int n1 = 5;
+            int[] array = { 1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 9 };
+
+            //Act
+            string result = await _exercise.EspecificNumberCounter(n1, array);
+
+            //Assert
+            result.Should().Be("Number 5 found 2 times");
+        }
+
+        [TestMethod]
+        public async Task ShouldFindIfItsFirstOrLast()
+        {
+            //Arrange
+            int[] array = { 1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 9 };
+            int n1 = 25;
+
+            //Act
+            bool result = await _exercise.FirstOrLast(n1, array);
+
+            //Assert
+            result.Should().Be(false);
         }
     }
 }

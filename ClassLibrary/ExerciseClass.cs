@@ -1,4 +1,6 @@
-﻿namespace ClassLibrary
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ClassLibrary
 {
     public class ExerciseClass
     {
@@ -293,6 +295,95 @@
         public async Task<bool> CheckIfItsLessThan100AndGreaterThan200(int n1, int n2)
         {
             bool result = n1 < 100 && n2 > 200;
+            return result;
+        }
+
+        public async Task<bool> FitsRange(int n1, int n2)
+        {
+            bool result = (n1 > -10) && (n1 < 10) && (n2 > -10) && (n2 < 10);
+
+            return result;
+        }
+
+        public async Task<string> RemoveCharacterByString(string input, string remove)
+        {
+            string result = input.Replace(remove, "");
+            return result;
+        }
+
+        public async Task<bool> StringFinder(string input, string lookingFor)
+        {
+            return input.Contains(lookingFor) ? true : false;
+        }
+
+        public async Task<(int Largest, int Lowest)> FindLargestAndLowest(int n1, int n2, int n3)
+        {
+            (int Largest, int Lowest) result;
+            result.Largest = Math.Max(Math.Max(n1, n2), n3);
+            result.Lowest = Math.Min(Math.Min(n1, n2), n3);
+
+            return result;
+        }
+
+        public async Task<int> NextTo20(int n1, int n2)
+        {
+            int value1 = 20 - n1;
+            int value2 = 20 - n2;
+
+            int result = (n1 == n2) ? 0 : ((value1 < value2) ? n1 : n2);
+            return result;
+        }
+
+        public async Task<string> FirstFourUpperCase(string input)
+        {
+            string result = "";
+            if (input.Length <= 4)
+            {
+                return input.ToUpper();
+            }
+            else
+            {
+                result = input.Substring(0, 4).ToUpper() + input.Substring(4);
+                return result;
+            }
+        }
+
+        public async Task<string> RemoveOddNumberedCharacters(string input)
+        {
+            string result = "";
+
+            for (int i = 0; i < input.Length; i += 2)
+            {
+                result += input.Substring(i, 1);
+            }
+
+            return result;
+        }
+
+        public async Task<string> EspecificNumberCounter(int n1, int[] array)
+        {
+            int count = 0;
+
+            //foreach (int item in array)
+            //{
+            //    count += item == n1 ? 1 : 0;
+            //}
+
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    count += array[i] == n1 ? 1 : 0;
+            //}
+
+            count = array.Where(x => x == n1).Count();
+
+            return $"Number {n1} found {count} times";
+        }
+
+        public async Task<bool> FirstOrLast(int n1, int[] array)
+        {
+            int count = array.Length - 1;
+            bool result = (array[0] == n1) || (array[count] == n1);
+
             return result;
         }
     }

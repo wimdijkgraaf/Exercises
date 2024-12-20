@@ -454,5 +454,87 @@ namespace ClassLibrary
             }
             return result;
         }
+
+        public async Task<int> LargestProductToAdjacent(int[] array)
+        {
+            int product = 0;
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                product = ((array[i] * array[i + 1]) > product) ? (array[i] * array[i + 1]) : product;
+            }
+
+            return product;
+        }
+
+        public async Task<bool> IsPalindrome(string input)
+        {
+            string reverseInput = new string(input.Reverse().ToArray());
+            bool result = (reverseInput == input) ? true : false;
+
+            return result;
+        }
+
+        public async Task<int[]> ArrayCheck(int[] array)
+        {
+            int[] missing = new int[9];
+            int count = 0;
+
+            for (int i = 1; i <= 9; i++)
+            {
+                if (!array.Contains(i)) { missing[count] = i; count++; };
+            }
+
+            return missing.Take(count).ToArray();
+        }
+
+        public async Task<string> FileNameFinder(string filePath)
+        {
+            string fileName = filePath.Split('\\').Last();
+
+            return fileName;
+        }
+
+        public async Task<int[]> MultiplyArrayByLength(int[] array)
+        {
+            var result = array.Select(x => x * array.Length).ToArray();
+            return result;
+        }
+
+        public async Task<int> MinValueFromString(string n1, string n2)
+        {
+            int v1 = int.Parse(n1);
+            int v2 = int.Parse(n2);
+
+            return (v1 > v2) ? v2 : v1;
+        }
+
+        public async Task<string> TextEncripter(string input)
+        {
+            var encript = new Dictionary<string, string>
+            {
+                {"P", "9"},
+                {"T", "0"},
+                {"S", "1"},
+                {"H", "6"},
+                {"A", "8"}
+            };
+
+            string result = encript.Aggregate(input, (a, b) => a.Replace(b.Key, b.Value));
+
+            return result;
+        }
+
+        public async Task<int> SpecificCharacterCounter(string input, char upperCase, char lowerCase)
+        {
+            char[] charList = input.Substring(0, input.Length -1).ToArray();
+            int result = 0;
+
+            foreach (var item in charList)
+            {
+                result = (item == upperCase || item == lowerCase) ? result +1 : result +0;
+            }
+
+            return result;
+        }
     }
 }

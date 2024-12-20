@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Xml.XPath;
 using ClassLibrary;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +15,7 @@ namespace ExerciseTests
         public ExerciseTests()
         {
             _exercise = new ExerciseClass();
-        }        
+        }
 
         [TestMethod]
         public async Task ShouldAddTwoNumbers()
@@ -780,6 +781,133 @@ namespace ExerciseTests
             //Assert
             result.Should().Be("XXI");
             result2.Should().Be("X");
+        }
+
+        [TestMethod]
+        public async Task ShouldFindLargestProductBetweenAdjacent()
+        {
+            //Arrange
+            int[] array = { 2, 4, 2, 6, 9, 3 };
+            int[] array2 = { 3, 5, 8, 8, 7, 4, 6 };
+
+            //Act
+            int result = await _exercise.LargestProductToAdjacent(array);
+            int result2 = await _exercise.LargestProductToAdjacent(array2);
+
+            //Assert
+            result.Should().Be(54);
+            result2.Should().Be(64);
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfItsAPalindrome()
+        {
+            //Arrange
+            string input = "ovo";
+            string input2 = "analize";
+
+            //Act
+            bool result = await _exercise.IsPalindrome(input);
+            bool result2 = await _exercise.IsPalindrome(input2);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(false);
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckHowManyIntegersIsMissing()
+        {
+            //Arrange
+            int[] array = [1, 3, 4, 7, 9];
+            int[] array2 = [2, 5, 8];
+
+            //Act
+            int[] result = await _exercise.ArrayCheck(array);
+            int[] result2 = await _exercise.ArrayCheck(array2);
+
+            //Assert
+            result[0].Should().Be(2);
+            result[^1].Should().Be(8);
+            result2[0].Should().Be(1);
+            result2[^1].Should().Be(9);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindFileName()
+        {
+            //Arrange
+            string filePath = @"D:Temp\curso_C#\Aulas\Storage\Calculator.xml";
+            string filePath2 = @"D:Temp\curso_C#\Aulas\Storage\Calculator.json";
+
+            //Act
+            string result = await _exercise.FileNameFinder(filePath);
+            string result2 = await _exercise.FileNameFinder(filePath2);
+
+            //Assert
+            result.Should().Be("Calculator.xml");
+            result2.Should().Be("Calculator.json");
+        }
+
+        [TestMethod]
+        public async Task ShouldMultiplyArrayNumbersByItsLength()
+        {
+            //Arrange
+            int[] array = [2, 5, 8, 10];
+
+            //Act
+            int[] result = await _exercise.MultiplyArrayByLength(array);
+
+            //Assert
+            result[0].Should().Be(8);
+            result[^1].Should().Be(40);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindMinValueFromAString()
+        {
+            //Arrange
+            string n1 = "25";
+            string n2 = "33";
+
+            //Act
+            int result = await _exercise.MinValueFromString(n1, n2);
+
+            //Assert
+            result.Should().Be(25);
+        }
+
+        [TestMethod]
+        public async Task ShouldEncriptAString()
+        {
+            //Arrange
+            string input = "JAVASCRIPT";
+
+            //Act
+            string result = await _exercise.TextEncripter(input);
+
+            //Assert
+            result.Should().Be("J8V81CRI90");
+        }
+
+        [TestMethod]
+        public async Task ShouldCountSpecificCharacterInAString()
+        {
+            //Arrange
+            string input = "PHP Exercises";
+            char upperCase = 'E';
+            char lowerCase = 'e';
+            string input2 = "Latest News, Breaking News LIVE";
+            char upperCase2 = 'A';
+            char lowerCase2 = 'a';
+
+            //Act
+            int result = await _exercise.SpecificCharacterCounter(input, upperCase, lowerCase);
+            int result2 = await _exercise.SpecificCharacterCounter(input2, upperCase2, lowerCase2);
+
+            //Assert
+            result.Should().Be(3);
+            result2.Should().Be(2);
         }
     }
 }

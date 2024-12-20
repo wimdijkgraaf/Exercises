@@ -14,7 +14,7 @@ namespace ExerciseTests
         public ExerciseTests()
         {
             _exercise = new ExerciseClass();
-        }
+        }        
 
         [TestMethod]
         public async Task ShouldAddTwoNumbers()
@@ -664,12 +664,122 @@ namespace ExerciseTests
             //Arrange
             int[] array = { 1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 9 };
             int n1 = 25;
+            int n2 = 9;
 
             //Act
             bool result = await _exercise.FirstOrLast(n1, array);
+            bool result2 = await _exercise.FirstOrLast(n2, array);
 
             //Assert
             result.Should().Be(false);
+            result2.Should().Be(true);
+        }
+
+        [TestMethod]
+        public async Task ShouldSumAllIntsInArray()
+        {
+            //Arrange
+            int[] array = [1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 1];
+
+            //Act
+            int result = await _exercise.SumArray(array);
+
+            //Assert
+            result.Should().Be(69);
+        }
+
+        [TestMethod]
+        public async Task ShouldCompareFirstOrLastElementsOfArray()
+        {
+            //Arrange
+            int[] array = [1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 1];
+            int[] array2 = [1, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 5];
+            int[] array3 = [0, 2, 2, 3, 3, 4, 5, 6, 5, 7, 7, 7, 8, 8, 5];
+
+            //Act
+            bool result = await _exercise.FirstOrLastCompare(array, array2);
+            bool result2 = await _exercise.FirstOrLastCompare(array, array3);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(false);
+        }
+
+        [TestMethod]
+        public async Task ShouldInvertAnArray()
+        {
+            //Arrange
+            int[] array = [1, 2, 8];
+
+            //Act
+            int[] result = await _exercise.ArrayInverter(array);
+
+            //Assert
+            result[0].Should().Be(8);
+            result[1].Should().Be(2);
+            result[2].Should().Be(1);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindLargesBetweenFirstAndLastNumberOfArray()
+        {
+            //Arrange
+            int[] array = [1, 2, 5, 7, 8];
+            int[] array2 = [9, 2, 5, 7, 8];
+
+            //Act
+            int result = await _exercise.LargestBetweenFirstAndLast(array);
+            int result2 = await _exercise.LargestBetweenFirstAndLast(array2);
+
+            //Assert
+            result.Should().Be(8);
+            result2.Should().Be(9);
+        }
+
+        [TestMethod]
+        public async Task ShouldCreateArrayWithElementsOfTheMiddleOfOtherArray()
+        {
+            //Arrange
+            int[] array1 = [1, 2, 5];
+            int[] array2 = [0, 3, 8];
+            int[] array3 = [-1, 0, 2];
+
+            //Act
+            int[] result = await _exercise.MiddleArray(array1, array2, array3);
+
+            //Assert
+            result[0].Should().Be(2);
+            result[1].Should().Be(3);
+            result[2].Should().Be(0);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindTheOddNumbersInArray()
+        {
+            //Arrange
+            int[] array = [2, 4, 7, 8, 6];
+
+            //Act
+            bool result = await _exercise.HasOddNumber(array);
+
+            //Assert
+            result.Should().Be(true);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindTheCenturyOfAnYear()
+        {
+            //Arrange
+            int year = 2024;
+            int year2 = 901;
+
+            //Act
+            string result = await _exercise.CenturyOfTheYear(year);
+            string result2 = await _exercise.CenturyOfTheYear(year2);
+
+            //Assert
+            result.Should().Be("XXI");
+            result2.Should().Be("X");
         }
     }
 }

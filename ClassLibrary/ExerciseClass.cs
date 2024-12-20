@@ -1,9 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ClassLibrary
 {
     public class ExerciseClass
     {
+        private Dictionary<int, string> _romanCentury = new Dictionary<int, string>
+        {
+            {1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"},
+            {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"},
+            {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}
+        };
+
         public async Task<double> Add(params double[] values)
         {
             return values.Aggregate((a, b) => a + b);
@@ -381,9 +389,69 @@ namespace ClassLibrary
 
         public async Task<bool> FirstOrLast(int n1, int[] array)
         {
-            int count = array.Length - 1;
-            bool result = (array[0] == n1) || (array[count] == n1);
+            bool result = (array[0] == n1) || (array[^1] == n1);
 
+            return result;
+        }
+
+        public async Task<int> SumArray(int[] array)
+        {
+            int result = 0;
+            int count = array.Length;
+
+            for (int i = 0; i < count; i++)
+            {
+                result += array[i];
+            }
+
+            return result;
+        }
+
+        public async Task<bool> FirstOrLastCompare(int[] array, int[] array2)
+        {
+            return array[0] == array2[0] || array[^1] == array2[^1];
+        }
+
+        public async Task<int[]> ArrayInverter(int[] array)
+        {
+            int[] result = array.Reverse().ToArray();
+
+            return result;
+        }
+
+        public async Task<int> LargestBetweenFirstAndLast(int[] array)
+        {
+            int count = array.Length - 1;
+            int result = (array[0] > array[count]) ? array[0] : array[count];
+
+            return result;
+        }
+
+        public async Task<int[]> MiddleArray(params int[][] arrays)
+        {
+            return arrays.Select(a => a[1]).ToArray();
+        }
+
+        public async Task<bool> HasOddNumber(int[] array)
+        {
+            return array.Any(n => n % 2 != 0);
+        }
+
+        public async Task<string> CenturyOfTheYear(int year)
+        {
+
+            int century = (year + 99) / 100;
+
+            string result = "";
+
+            foreach (var item in _romanCentury.OrderByDescending(x => x.Key))
+            {
+                while (century >= item.Key)
+                {
+                    result += item.Value;
+                    century -= item.Key;
+                }
+            }
             return result;
         }
     }

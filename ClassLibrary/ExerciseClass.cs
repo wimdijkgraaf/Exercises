@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace ClassLibrary
 {
@@ -526,15 +527,243 @@ namespace ClassLibrary
 
         public async Task<int> SpecificCharacterCounter(string input, char upperCase, char lowerCase)
         {
-            char[] charList = input.Substring(0, input.Length -1).ToArray();
+            char[] charList = input.Substring(0, input.Length - 1).ToArray();
             int result = 0;
 
             foreach (var item in charList)
             {
-                result = (item == upperCase || item == lowerCase) ? result +1 : result +0;
+                result = (item == upperCase || item == lowerCase) ? result + 1 : result + 0;
             }
 
             return result;
+        }
+
+        public async Task<bool> CheckIfItsOnlyUpperOrLowerCase(string input)
+        {
+            var result = input.All(c => char.IsUpper(c)) || input.All(c => char.IsLower(c));
+            return result;
+        }
+
+        public async Task<string> RemoveFirstAndLastCharacter(string input)
+        {
+            var result = input.Length > 2 ? input.Substring(1, input.Length - 2) : input;
+            return result;
+        }
+
+        public async Task<bool> CheckIfItsConsecutive(string input)
+        {
+            bool result = false;
+
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                if (input[i] == input[i + 1])
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<bool> WholeNumberAverage(int[] array)
+        {
+            double average = array.Average();
+
+            return (average == (int)average) ? true : false;
+        }
+
+        public async Task<string> OrderByAlphabetical(string input)
+        {
+            string result = new string(input.OrderBy(x => x).ToArray());
+            return result;
+        }
+
+        public async Task<string> OddOrEvenLength(string input)
+        {
+            string result = (input.Length % 2 == 0) ? "Even Length" : "Odd Length";
+            return result;
+        }
+
+        public async Task<int> OddNumberByPosition(int position)
+        {
+            int result = (position * 2) - 1;
+
+            return result;
+        }
+
+        public async Task<int> AsciiNumber(char input)
+        {
+            return (int)input;
+        }
+
+        public async Task<bool> IsPlural(string input)
+        {
+            bool result = input.EndsWith("s");
+            return result;
+        }
+
+        public async Task<double> SumOfSqr(int[] array)
+        {
+            double result = array.Sum(n => n * n);
+            return result;
+        }
+
+        public async Task<string[]> GetTypeOfArray(object[] array)
+        {
+            var result = array.Select(x => x.GetType().Name).ToArray();
+            return result;
+        }
+
+        public async Task<bool> SwapAndCheckTheLargest(int input)
+        {
+            bool result = ((input % 10 * 10) + (input / 10)) > input ? true : false;
+
+            return result;
+        }
+
+        public async Task<string> NonLetterRemoval(string input)
+        {
+            string result = "";
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    result += c;
+                }
+            }
+            return result;
+        }
+
+        public async Task<string> VowelRemover(string input)
+        {
+            string result = new Regex(@"[aeiouAEIOU]").Replace(input, "");
+            return result;
+        }
+
+        public async Task<int[]> LowerCaseIndexer(string input)
+        {
+            var result = input.Select((x, i) => i).Where(i => char.IsLower(input[i])).ToArray();
+            return result;
+        }
+
+        public async Task<double[]> CumulativeSum(double[] array)
+        {
+            double[] result = new double[array.Length];
+
+            double sum = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                sum += array[i];
+                result[i] = Math.Round(sum, 2);
+            }
+            return result;
+        }
+
+        public async Task<string> LetterAndNumberCount(string input)
+        {
+            int letterCount = 0;
+            int digitCount = 0;
+            string breakInput = input.Replace(" ", "").Replace(".", "");
+
+            foreach (char c in breakInput)
+            {
+                if (!char.IsLetter(c))
+                {
+                    digitCount++;
+                }
+                else
+                {
+                    letterCount++;
+                }
+            }
+
+            string result = $"{letterCount} letters and {digitCount} digits";
+            return result;
+        }
+
+        public async Task<int> SumOfInteriorAnglesOfAPoligon(int input)
+        {
+            int result = 180 * (input - 2);
+
+            return result;
+        }
+
+        public async Task<string> PositiveAndNegativeArray(double[] array)
+        {
+            int positives = array.Count(x => x > 0);
+            int negatives = array.Count(x => x < 0);
+            return $"{positives} positives and {negatives} negatives";
+        }
+
+        public async Task<string> BinaryCounter(int input)
+        {
+            var binary = Convert.ToString(input, 2);
+            var zeros = binary.Count(c => c == '0');
+            var ones = binary.Count(c => c == '1');
+            return $"{zeros} zeros and {ones} ones";
+        }
+
+        public async Task<int[]> IntegerExtractor(object[] mixedArray)
+        {
+            var result = mixedArray.OfType<int>().ToArray();
+
+            return result;
+        }
+
+        public async Task<int> NextPrime(int input)
+        {
+            for (int i = 2; i < input; i++)
+            {
+                if (input % i == 0)
+                {
+                    input++;
+                    i = 2;
+                }
+            }
+            return input;
+        }
+
+        public async Task<string> LongestCommonPrefix(string[] input)
+        {
+            var result = input.Aggregate((a, b) =>
+                string.Join("", a.TakeWhile((c, i) => i < b.Length && c == b[i])));
+
+            return result;
+        }
+
+        public async Task<bool> CheckIfBracketsIsClosed(string input)
+        {
+            var pile = new Stack<char>();
+            var map = new Dictionary<char, char>
+            {
+                { ')', '(' },
+                { '}', '{' },
+                { ']', '[' },
+                { '>', '<' }
+            };
+
+            foreach (var character in input)
+            {
+                if (map.ContainsValue(character))
+                {
+                    pile.Push(character);
+                }
+                else if (map.ContainsKey(character))
+                {
+                    if (pile.Count == 0 || pile.Pop() != map[character])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return pile.Count == 0;
+        }
+
+        public async Task<bool> CheckIfCharacterAreSame(string input)
+        {
+            return input.Distinct().Count() == 1;
         }
     }
 }

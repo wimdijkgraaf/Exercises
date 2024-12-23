@@ -1,9 +1,12 @@
+using System.Drawing;
 using System.Reflection;
+using System.Transactions;
 using System.Xml.XPath;
 using ClassLibrary;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit.Sdk;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExerciseTests
 {
@@ -908,6 +911,478 @@ namespace ExerciseTests
             //Assert
             result.Should().Be(3);
             result2.Should().Be(2);
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfItsOnlyLowerOrUpperCase()
+        {
+            //Arrange
+            string input = "PHP";
+            string input2 = "python";
+            string input3 = "JavaScript";
+
+            //Act
+            bool result = await _exercise.CheckIfItsOnlyUpperOrLowerCase(input);
+            bool result2 = await _exercise.CheckIfItsOnlyUpperOrLowerCase(input2);
+            bool result3 = await _exercise.CheckIfItsOnlyUpperOrLowerCase(input3);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(true);
+            result3.Should().Be(false);
+        }
+
+        [TestMethod]
+        public async Task ShouldRemoveFirstAndLastCharacter()
+        {
+            //Arrange
+            string input = "PHP";
+            string input2 = "Python";
+            string input3 = "JavaScript";
+
+            //Act
+            string result = await _exercise.RemoveFirstAndLastCharacter(input);
+            string result2 = await _exercise.RemoveFirstAndLastCharacter(input2);
+            string result3 = await _exercise.RemoveFirstAndLastCharacter(input3);
+
+            //Assert
+            result.Should().Be("H");
+            result2.Should().Be("ytho");
+            result3.Should().Be("avaScrip");
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfItsConsecutive()
+        {
+            //Arrange
+            string input = "PHP";
+            string input2 = "PHHP";
+            string input3 = "PHPP";
+            string input4 = "PPHP";
+
+            //Act
+            bool result = await _exercise.CheckIfItsConsecutive(input);
+            bool result2 = await _exercise.CheckIfItsConsecutive(input2);
+            bool result3 = await _exercise.CheckIfItsConsecutive(input3);
+            bool result4 = await _exercise.CheckIfItsConsecutive(input4);
+
+            //Assert
+            result.Should().Be(false);
+            result2.Should().Be(true);
+            result3.Should().Be(true);
+            result4.Should().Be(true);
+        }
+
+        [TestMethod]
+        public async Task ShouldHaveAWholeNumberAverage()
+        {
+            //Arrange
+            int[] array = { 1, 2, 3, 5, 4, 2, 3, 4 }; //Average = 12
+            int[] array2 = { 2, 4, 2, 6, 4, 8 }; //Average = 
+
+            //Act
+            bool result = await _exercise.WholeNumberAverage(array);
+            bool result2 = await _exercise.WholeNumberAverage(array2);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(false);
+        }
+
+        [TestMethod]
+        public async Task ShouldOrderByAlphabetical()
+        {
+            //Arrange
+            string input = "PHP";
+            string input2 = "javascript";
+            string input3 = "python";
+
+            //Act
+            string result = await _exercise.OrderByAlphabetical(input);
+            string result2 = await _exercise.OrderByAlphabetical(input2);
+            string result3 = await _exercise.OrderByAlphabetical(input3);
+
+            //Assert
+            result.Should().Be("HPP");
+            result2.Should().Be("aacijprstv");
+            result3.Should().Be("hnopty");
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfLengthIsOddOrEven()
+        {
+            //Arrange
+            string input = "PHP";
+            string input2 = "JavaScript";
+            string input3 = "Python";
+
+            //Act
+            string result = await _exercise.OddOrEvenLength(input);
+            string result2 = await _exercise.OddOrEvenLength(input2);
+            string result3 = await _exercise.OddOrEvenLength(input3);
+
+            //Assert
+            result.Should().Be("Odd Length");
+            result2.Should().Be("Even Length");
+            result3.Should().Be("Even Length");
+        }
+
+        [TestMethod]
+        public async Task ShouldFindTheOddNumber()
+        {
+            //Arrange
+            int position = 1;
+            int position2 = 2;
+            int position3 = 4;
+            int position4 = 100;
+
+            //Act
+            int result = await _exercise.OddNumberByPosition(position);
+            int result2 = await _exercise.OddNumberByPosition(position2);
+            int result3 = await _exercise.OddNumberByPosition(position3);
+            int result4 = await _exercise.OddNumberByPosition(position4);
+
+            //Assert
+            result.Should().Be(1);
+            result2.Should().Be(3);
+            result3.Should().Be(7);
+            result4.Should().Be(199);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindTheAsciiValueOfACharacter()
+        {
+            //Arrange
+            char input = '1';
+            char input2 = 'A';
+            char input3 = 'a';
+            char input4 = '#';
+
+            //Act
+            int result = await _exercise.AsciiNumber(input);
+            int result2 = await _exercise.AsciiNumber(input2);
+            int result3 = await _exercise.AsciiNumber(input3);
+            int result4 = await _exercise.AsciiNumber(input4);
+
+            //Assert
+            result.Should().Be(49);
+            result2.Should().Be(65);
+            result3.Should().Be(97);
+            result4.Should().Be(35);
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfItsSingularOrPlural()
+        {
+            //Arrange
+            string input = "Exercise";
+            string input2 = "Exercises";
+            string input3 = "Book";
+            string input4 = "Books";
+
+            //Act
+            bool result = await _exercise.IsPlural(input);
+            bool result2 = await _exercise.IsPlural(input2);
+            bool result3 = await _exercise.IsPlural(input3);
+            bool result4 = await _exercise.IsPlural(input4);
+
+            //Assert
+            result.Should().Be(false);
+            result2.Should().Be(true);
+            result3.Should().Be(false);
+            result4.Should().Be(true);
+        }
+
+        [TestMethod]
+        public async Task ShouldCalculateTheSumOfTheSquaresOfAnArray()
+        {
+            //Arrange
+            int[] array = { 1, 2, 3 };
+            int[] array2 = { -2, 0, 3, 4 };
+
+            //Act
+            double result = await _exercise.SumOfSqr(array);
+            double result2 = await _exercise.SumOfSqr(array2);
+
+            //Assert
+            result.Should().Be(14);
+            result2.Should().Be(29);
+        }
+
+        [TestMethod]
+        public async Task Should()
+        {
+            //Arrange
+            object[] array = new object[5];
+            array[0] = 25;
+            array[1] = "Anna";
+            array[2] = false;
+            array[3] = DateTime.Now;
+            array[4] = 112.22;
+
+            //Act
+            string[] result = await _exercise.GetTypeOfArray(array);
+
+            //Assert
+            result[0].Should().Be("Int32");
+            result[1].Should().Be("String");
+            result[2].Should().Be("Boolean");
+            result[3].Should().Be("DateTime");
+            result[4].Should().Be("Double");
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckSwappedTwoDigitNumber()
+        {
+            //Arrange
+            int input = 25;
+            int input2 = 64;
+
+            //Act
+            bool result = await _exercise.SwapAndCheckTheLargest(input);
+            bool result2 = await _exercise.SwapAndCheckTheLargest(input2);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(false);
+        }
+
+        [TestMethod]
+        public async Task ShouldRemoveNonLetters()
+        {
+            //Arrange
+            string input = "Py@th12on";
+            string input2 = "Python 3.0";
+            string input3 = "2^sdfds*^*^jlljdslfnoswje34u230sdfds984";
+
+            //Act
+            string result = await _exercise.NonLetterRemoval(input);
+            string result2 = await _exercise.NonLetterRemoval(input2);
+            string result3 = await _exercise.NonLetterRemoval(input3);
+
+            //Assert
+            result.Should().Be("Python");
+            result2.Should().Be("Python");
+            result3.Should().Be("sdfdsjlljdslfnoswjeusdfds");
+        }
+
+        [TestMethod]
+        public async Task ShouldRemoveVowelFromString()
+        {
+            //Arrange
+            string input = "Python";
+            string input2 = "C Sharp";
+            string input3 = "JavaScript";
+
+            //Act
+            string result = await _exercise.VowelRemover(input);
+            string result2 = await _exercise.VowelRemover(input2);
+            string result3 = await _exercise.VowelRemover(input3);
+
+            //Assert
+            result.Should().Be("Pythn");
+            result2.Should().Be("C Shrp");
+            result3.Should().Be("JvScrpt");
+        }
+
+        [TestMethod]
+        public async Task ShouldGetTheIndexOfLowerCaseCharacters()
+        {
+            //Arrange
+            string input = "Python";
+            string input2 = "JavaScript";
+
+            //Act
+            int[] result = await _exercise.LowerCaseIndexer(input);
+            int[] result2 = await _exercise.LowerCaseIndexer(input2);
+
+            //Assert
+            result.Should().BeEquivalentTo(new int[] { 1, 2, 3, 4, 5 });
+            result2.Should().BeEquivalentTo(new int[] { 1, 2, 3, 5, 6, 7, 8, 9 });
+        }
+
+        [TestMethod]
+        public async Task ShouldSumCumulativeInArray()
+        {
+            //Arrange
+            double[] array = { 1, 3, 4, 5, 6, 7 };
+            double[] array2 = { 1.2, -3, 4.1, 6, -5.47 };
+
+            //Act
+            double[] result = await _exercise.CumulativeSum(array);
+            double[] result2 = await _exercise.CumulativeSum(array2);
+
+            //Assert
+            result.Should().BeEquivalentTo(new double[] { 1, 4, 8, 13, 19, 26 });
+            result2.Should().BeEquivalentTo(new double[] { 1.2, -1.8, 2.3, 8.3, 2.83 });
+        }
+
+        [TestMethod]
+        public async Task ShouldCountLettersAndNumbers()
+        {
+            //Arrange
+            string input = "Python 3.0";
+            string input2 = "dsfkaso230samdm2423sa";
+
+            //Act
+            string result = await _exercise.LetterAndNumberCount(input);
+            string result2 = await _exercise.LetterAndNumberCount(input2);
+
+            //Assert
+            result.Should().Be("6 letters and 2 digits");
+            result2.Should().Be("14 letters and 7 digits");
+        }
+
+        [TestMethod]
+        public async Task ShouldSumOfInteriorAnglesOfAPoligon()
+        {
+            //Arrange
+            int input = 6;
+
+            //Act
+            int result = await _exercise.SumOfInteriorAnglesOfAPoligon(input);
+
+            //Assert
+            result.Should().Be(720);
+        }
+
+        [TestMethod]
+        public async Task ShouldCountPositivesAndNegativesInArray()
+        {
+            //Arrange
+            double[] array = { 10, -11, 12, -13, 14, -18, 19, -20 };
+            double[] array2 = { -4, -3, -2, 0, 3, 5, 6, 2, 6 };
+
+            //Act
+            string result = await _exercise.PositiveAndNegativeArray(array);
+            string result2 = await _exercise.PositiveAndNegativeArray(array2);
+
+            //Assert
+            result.Should().Be("4 positives and 4 negatives");
+            result2.Should().Be("5 positives and 3 negatives");
+        }
+
+        [TestMethod]
+        public async Task ShouldCountZerosAndOnesInBinary()
+        {
+            //Arrange
+            int input = 12;
+            int input2 = 1234;
+
+            //Act
+            string result = await _exercise.BinaryCounter(input);
+            string result2 = await _exercise.BinaryCounter(input2);
+
+            //Assert
+            result.Should().Be("2 zeros and 2 ones");
+            result2.Should().Be("6 zeros and 5 ones");
+        }
+
+        [TestMethod]
+        public async Task ShouldExtractNonIntegersFromArray()
+        {
+            //Arrange
+            object[] mixedArray = new object[6];
+            mixedArray[0] = 25;
+            mixedArray[1] = "Anna";
+            mixedArray[2] = false;
+            mixedArray[3] = System.DateTime.Now;
+            mixedArray[4] = -112;
+            mixedArray[5] = -34.67;
+
+            //Act
+            int[] result = await _exercise.IntegerExtractor(mixedArray);
+
+            //Assert
+            result.Should().BeEquivalentTo(new int[] { 25, -112 });
+        }
+
+        [TestMethod]
+        public async Task ShouldFindNextPrimeNumber()
+        {
+            //Arrange
+            int input = 120;
+            int input2 = 321;
+            int input3 = 43;
+            int input4 = 4433;
+
+            //Act
+            int result = await _exercise.NextPrime(input);
+            int result2 = await _exercise.NextPrime(input2);
+            int result3 = await _exercise.NextPrime(input3);
+            int result4 = await _exercise.NextPrime(input4);
+
+            //Assert
+            result.Should().Be(127);
+            result2.Should().Be(331);
+            result3.Should().Be(43);
+            result4.Should().Be(4441);
+        }
+
+        [TestMethod]
+        public async Task ShouldFindLongestCommonPrefix()
+        {
+            //Arrange
+            string[] input = { "Padas", "Packed", "Pace", "Pacha" };
+            string[] input2 = { "Jacket", "Joint", "Junky", "Jet" };
+            string[] input3 = { "Bort", "Whang", "Yarder", "Zoonic" };
+
+            //Act
+            string result = await _exercise.LongestCommonPrefix(input);
+            string result2 = await _exercise.LongestCommonPrefix(input2);
+            string result3 = await _exercise.LongestCommonPrefix(input3);
+
+            //Assert
+            result.Should().Be("Pa");
+            result2.Should().Be("J");
+            result3.Should().Be("");
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfBracketsIsClosed()
+        {
+            //Arrange
+            string input = " \"<>\"";
+            string input2 = "\"<>()[]{}\"";
+            string input3 = "\"(<>\"";
+            string input4 = "[<>()[]{}]";
+            string input5 = "(]";
+
+            //Act
+            bool result = await _exercise.CheckIfBracketsIsClosed(input);
+            bool result2 = await _exercise.CheckIfBracketsIsClosed(input2);
+            bool result3 = await _exercise.CheckIfBracketsIsClosed(input3);
+            bool result4 = await _exercise.CheckIfBracketsIsClosed(input4);
+            bool result5 = await _exercise.CheckIfBracketsIsClosed(input5);
+
+            //Assert
+            result.Should().Be(true);
+            result2.Should().Be(true);
+            result3.Should().Be(false);
+            result4.Should().Be(true);
+            result5.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfAllCharactersAreSame()
+        {
+            //Arrange
+            string input = "aaa";
+            string input2 = "abcd";
+            string input3 = "3333";
+            string input4 = "2342342";
+
+            //Act
+            bool result = await _exercise.CheckIfCharacterAreSame(input);
+            bool result2 = await _exercise.CheckIfCharacterAreSame(input2);
+            bool result3 = await _exercise.CheckIfCharacterAreSame(input3);
+            bool result4 = await _exercise.CheckIfCharacterAreSame(input4);
+
+            //Assert
+            result.Should().BeTrue();
+            result2.Should().BeFalse();
+            result3.Should().BeTrue();
+            result4.Should().BeFalse();
         }
     }
 }

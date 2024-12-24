@@ -164,7 +164,6 @@ namespace Basics.ClassLibrary
                 }
             }
         }
-
         public async Task<bool> CheckIfItsWithin20(int input)
         {
             var itsWithin = Math.Abs(input - 100) <= 20 || (Math.Abs(input - 200) <= 20);
@@ -215,7 +214,7 @@ namespace Basics.ClassLibrary
             return soma;
         }
 
-        private static bool IsPrime(int num)
+        private static bool IsPrime(int num) // 100
         {
             if (num <= 1) return false;
             for (int i = 2; i <= Math.Sqrt(num); i++)

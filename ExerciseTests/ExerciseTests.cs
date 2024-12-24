@@ -1,14 +1,9 @@
-using System.Drawing;
-using System.Reflection;
-using System.Transactions;
-using System.Xml.XPath;
-using ClassLibrary;
+using Basics.ClassLibrary;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit.Sdk;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ExerciseTests
+namespace Basics.ExerciseTests
 {
     [TestClass]
     public class ExerciseTests
@@ -1417,7 +1412,7 @@ namespace ExerciseTests
             int[] result = await _exercise.PrimeList(input);
 
             //Assert
-            result.Should().BeEquivalentTo(new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31});
+            result.Should().BeEquivalentTo(new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 });
         }
 
         [TestMethod]
@@ -1429,7 +1424,7 @@ namespace ExerciseTests
             object[] input3 = { true, "true" };
             object[] input4 = { 10, 10 };
             object[] input5 = { 10, 10.0 };
-            object[] input6 = { 10, "10"};
+            object[] input6 = { 10, "10" };
 
             //Act
             bool result = await _exercise.IsSameTypeAndValue(input);
@@ -1488,7 +1483,7 @@ namespace ExerciseTests
         {
             //Arrange
             int[] input = { 1, 2, 3 };
-            int[] input2 = { 1, 3, 3};
+            int[] input2 = { 1, 3, 3 };
             int[] input3 = { 3, 3, 3 };
 
             //Act

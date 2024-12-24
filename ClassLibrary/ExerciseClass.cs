@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
-using System.Globalization;
+﻿using System.Text.RegularExpressions;
 
-namespace ClassLibrary
+namespace Basics.ClassLibrary
 {
     public class ExerciseClass
     {
@@ -793,7 +791,7 @@ namespace ClassLibrary
         public async Task<bool> IsSameTypeAndValue(object[] input)
         {
             bool isEqual = input[0].GetType().Equals(input[1].GetType());
-            
+
             return isEqual ? input[0].ToString() == input[1].ToString() : false;
         }
 

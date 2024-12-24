@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExerciseTests", "ExerciseTests\ExerciseTests.csproj", "{45CF8219-78EA-4AEE-AABD-A2BD40E2FA92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{23246DC5-749E-4F2C-B3DA-A92617E01966}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basics", "Basics", "{3D98A675-E8CE-4446-B0CE-7F3300BC0A2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicsAlgorithm", "BasicsAlgorithm", "{8A60A074-7650-430C-B662-15936D24F605}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAlgorithmTests", "BasicAlgorithmTests\BasicAlgorithmTests.csproj", "{0E189059-C89D-45A5-ACF6-9EB1F2C8932D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAlgorithmClass", "BasicAlgorithmClass\BasicAlgorithmClass.csproj", "{33A77C23-2A54-450A-9626-85D96B855BD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +29,22 @@ Global
 		{23246DC5-749E-4F2C-B3DA-A92617E01966}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23246DC5-749E-4F2C-B3DA-A92617E01966}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23246DC5-749E-4F2C-B3DA-A92617E01966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E189059-C89D-45A5-ACF6-9EB1F2C8932D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E189059-C89D-45A5-ACF6-9EB1F2C8932D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E189059-C89D-45A5-ACF6-9EB1F2C8932D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E189059-C89D-45A5-ACF6-9EB1F2C8932D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A77C23-2A54-450A-9626-85D96B855BD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A77C23-2A54-450A-9626-85D96B855BD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A77C23-2A54-450A-9626-85D96B855BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A77C23-2A54-450A-9626-85D96B855BD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{45CF8219-78EA-4AEE-AABD-A2BD40E2FA92} = {3D98A675-E8CE-4446-B0CE-7F3300BC0A2E}
+		{23246DC5-749E-4F2C-B3DA-A92617E01966} = {3D98A675-E8CE-4446-B0CE-7F3300BC0A2E}
+		{0E189059-C89D-45A5-ACF6-9EB1F2C8932D} = {8A60A074-7650-430C-B662-15936D24F605}
+		{33A77C23-2A54-450A-9626-85D96B855BD6} = {8A60A074-7650-430C-B662-15936D24F605}
 	EndGlobalSection
 EndGlobal

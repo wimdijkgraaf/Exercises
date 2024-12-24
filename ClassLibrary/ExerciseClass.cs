@@ -765,5 +765,73 @@ namespace ClassLibrary
         {
             return input.Distinct().Count() == 1;
         }
+
+        public async Task<bool> CheckIfItsOnlyNumbers(string input)
+        {
+            double result;
+
+            return double.TryParse(input, out result);
+        }
+
+        public async Task<int[]> PrimeList(int input)
+        {
+            var primeList = new List<int>();
+            int integer = 2;
+
+            while (primeList.Count <= input)
+            {
+                if (IsPrime(integer))
+                {
+                    primeList.Add(integer);
+                }
+                integer++;
+            }
+
+            return primeList.ToArray();
+        }
+
+        public async Task<bool> IsSameTypeAndValue(object[] input)
+        {
+            //string type1 = input[0].GetType().Name;
+            //string type2 = input[1].GetType().Name;
+
+            bool isEqual = input[0].GetType().Equals(input[1].GetType());
+            
+            return isEqual ? input[0].ToString() == input[1].ToString() : false;
+        }
+
+        public async Task<string> IdentityMatrixCreator(int input)
+        {
+            string result = "";
+
+            for (int i = 0; i < input; i++)
+            {
+                for (int j = 0; j < input; j++)
+                {
+                    result += (i == j) ? "1" : "0";
+                    if (j < input - 1) result += " ";
+                }
+                if (i < input - 1) result += Environment.NewLine;
+            }
+
+            return result;
+        }
+
+        public async Task<string> SortString(string input)
+        {
+            var letters = input.Where(c => char.IsLetter(c)).OrderBy(c => char.ToLower(c));
+            var numbers = input.Where(c => char.IsDigit(c)).OrderBy(c => c);
+            string result = "";
+
+            result = (input.Trim() == "") ? "Blank String" : new string(letters.Concat(numbers).ToArray());
+
+            return result;
+        }
+
+        public async Task<int> EqualsBetweenThree(int[] input)
+        {
+            var result = input.GroupBy(n => n);
+            return result.Where(g => g.Count() > 1).Sum(g => g.Count());
+        }
     }
 }

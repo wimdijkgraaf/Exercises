@@ -1110,7 +1110,7 @@ namespace ExerciseTests
         }
 
         [TestMethod]
-        public async Task Should()
+        public async Task ShouldReturnTypeName()
         {
             //Arrange
             object[] array = new object[5];
@@ -1383,6 +1383,123 @@ namespace ExerciseTests
             result2.Should().BeFalse();
             result3.Should().BeTrue();
             result4.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckIfItsOnlyNumbers()
+        {
+            //Arrange
+            string input = "123";
+            string input2 = "123.33";
+            string input3 = "33/33";
+            string input4 = "234234d2";
+
+            //Act
+            bool result = await _exercise.CheckIfItsOnlyNumbers(input);
+            bool result2 = await _exercise.CheckIfItsOnlyNumbers(input2);
+            bool result3 = await _exercise.CheckIfItsOnlyNumbers(input3);
+            bool result4 = await _exercise.CheckIfItsOnlyNumbers(input4);
+
+            //Assert
+            result.Should().BeTrue();
+            result2.Should().BeTrue();
+            result3.Should().BeFalse();
+            result4.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public async Task ShouldShowPrimeNumbersByOrder()
+        {
+            //Arrange
+            int input = 10;
+
+            //Act
+            int[] result = await _exercise.PrimeList(input);
+
+            //Assert
+            result.Should().BeEquivalentTo(new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31});
+        }
+
+        [TestMethod]
+        public async Task ShouldCheckEqualityOfValueAndType()
+        {
+            //Arrange
+            object[] input = { "AAA", "BBB" };
+            object[] input2 = { true, false };
+            object[] input3 = { true, "true" };
+            object[] input4 = { 10, 10 };
+            object[] input5 = { 10, 10.0 };
+            object[] input6 = { 10, "10"};
+
+            //Act
+            bool result = await _exercise.IsSameTypeAndValue(input);
+            bool result2 = await _exercise.IsSameTypeAndValue(input2);
+            bool result3 = await _exercise.IsSameTypeAndValue(input3);
+            bool result4 = await _exercise.IsSameTypeAndValue(input4);
+            bool result5 = await _exercise.IsSameTypeAndValue(input5);
+            bool result6 = await _exercise.IsSameTypeAndValue(input6);
+
+            //Assert
+            result.Should().BeFalse();
+            result2.Should().BeFalse();
+            result3.Should().BeFalse();
+            result4.Should().BeTrue();
+            result5.Should().BeFalse();
+            result6.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public async Task ShouldCreateIdentityMatrix()
+        {
+            //Arrange
+            int input = 3;
+
+            //Act
+            string result = await _exercise.IdentityMatrixCreator(input);
+
+            //Assert
+            result.Should().Be("1 0 0\r\n0 1 0\r\n0 0 1");
+        }
+
+        [TestMethod]
+        public async Task ShouldSortCharactersInAString()
+        {
+            //Arrange
+            string input = "AAAbfed231";
+            string input2 = " ";
+            string input3 = "Python";
+            string input4 = "W3resource";
+
+            //Act
+            string result = await _exercise.SortString(input);
+            string result2 = await _exercise.SortString(input2);
+            string result3 = await _exercise.SortString(input3);
+            string result4 = await _exercise.SortString(input4);
+
+            //Assert
+            result.Should().Be("AAAbdef123");
+            result2.Should().Be("Blank String");
+            result3.Should().Be("hnoPty");
+            result4.Should().Be("ceeorrsuW3");
+        }
+
+        [TestMethod]
+        public async Task ShouldCompareEqualityOfThreeIntegers()
+        {
+            //Arrange
+            int[] input = { 1, 2, 3 };
+            int[] input2 = { 1, 3, 3};
+            int[] input3 = { 3, 3, 3 };
+
+            //Act
+            int result = await _exercise.EqualsBetweenThree(input);
+            int result2 = await _exercise.EqualsBetweenThree(input2);
+            int result3 = await _exercise.EqualsBetweenThree(input3);
+
+            //Assert
+            result.Should().Be(0);
+            result2.Should().Be(2);
+            result3.Should().Be(3);
         }
     }
 }

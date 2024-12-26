@@ -148,22 +148,11 @@ namespace Basics.ClassLibrary
         public async Task<bool> FindThe20(int n1, int n2)
         {
             var values = new[] { n1, n2 };
-            if (values.Contains(20))
-            {
-                return true;
-            }
-            else
-            {
-                if (n1 + n2 == 20)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            if (values.Contains(20)) return true;
+            if (n1 + n2 == 20) return true;
+            return false;    
         }
+        
         public async Task<bool> CheckIfItsWithin20(int input)
         {
             var itsWithin = Math.Abs(input - 100) <= 20 || (Math.Abs(input - 200) <= 20);

@@ -33,9 +33,7 @@ namespace Basics.ClassLibrary
 
         public async Task<(int Value1, int Value2)> SwapValues(int v1, int v2)
         {
-            var value1 = v2;
-            var value2 = v1;
-            return (value1, value2);
+            return (v2, v1);
         }
 
         public async Task<double[]> MultiplyUpToTen(double value)

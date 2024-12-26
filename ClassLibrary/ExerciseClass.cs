@@ -113,9 +113,12 @@ namespace Basics.ClassLibrary
             if (input.Length <= 1) return input;
 
             char[] chars = input.ToCharArray();
-            char temp = chars[0];
-            chars[0] = chars[input.Length - 1];
-            chars[input.Length - 1] = temp;
+            int first `= 0;
+            int last = input.Length - 1;
+            char firstChar = chars[first];
+            char lastChar = chars[last];
+            chars[first] = lastChar; 
+            chars[last] = firstChar;
 
             return new string(chars);
         }
